@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PresentaBlockModelViewer</title>
+    <script src="../dist/presenta-block-modelviewer.min.js"></script>
+
+    <style>
+        #wrapper{
+            width: 800px;
+            height: 400px;
+            outline: 1px solid red;
+        }
+    </style>
+</head>
+<body>
+
+    <div id="wrapper"></div>
+
+
+    <script>
+        var block = {
+            type: 'modelviewer',
+            views: [
+                '45deg 55deg 4m',
+                '-60deg 110deg 2m',
+                '0deg 75deg 105%'
+            ],
+            url: 'assets/Astronaut.glb',
+            //url: 'https://modelviewer.dev/shared-assets/models/glTF-Sample-Models/2.0/2CylinderEngine/glTF-Draco/2CylinderEngine.gltf'
+            _sceneConfig:{
+                _steps: []
+            }
+        }
+        const b = new PresentaBlockModelViewer(document.querySelector('#wrapper'), block)
+
+        console.log(b, block)
+
+        var idx = 0
+        document.body.addEventListener('keyup', e => {
+            let steps = block._sceneConfig._steps
+            b.stepForward(steps[idx])
+            idx++
+            if(idx >= steps.length) idx = 0
+        })
+    </script>
+</body>
+</html>
